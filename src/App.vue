@@ -1,12 +1,11 @@
 <template>
   <div id="app">
-    this is KryAdmin
+    <router-view></router-view>
   </div>
 </template>
 <script>
-
   export default {
-
+    name: 'App'
   }
 </script>
 <style>

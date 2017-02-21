@@ -1,13 +1,15 @@
 import Vue from 'vue';
 
 import Kui from '../kui';
-import Index from './components/Index/Index.vue';
+import App from './App.vue';
 import store from './store';
+import router from './router.js';
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  router,
   store,
-  template: '<Index/>',
-  components: { Index }
+  template: '<App/>',
+  components: { App }
 });
