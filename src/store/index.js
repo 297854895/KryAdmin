@@ -1,25 +1,39 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import api from './api'
 
 Vue.use(Vuex)
 
 const state = {
-  currentComponent: 'Layout'
+  manageArticleList: [],
+  manageNovelList: [],
+  manageCommentList: [],
+  manageReplyList: []
 }
 const mutations = {
-  updateDocComponents (state, component) {
-    state.currentComponent = component;
+  updateArticleList (state, data) {
+    state.manageArticleList = data;
   }
 }
 
 const getters = {
-  ['getCurrentComponent'] (state) {
-    return state.currentComponent;
+  ['getManageArticleList'] (state) {
+    return state.manageArticleList;
   }
 }
 
 const actions = {
-  updateDocComponents: ({ commit }, component) => commit('updateDocComponents', component),
+  updateArticleList: ({ commit }, params) => {
+      api.getArticleList(params)
+          .then(resp => {
+            if (resp.status === 200) {
+               commit('updateArticleList', resp.data)
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+  },
 }
 export default new Vuex.Store({
   state,

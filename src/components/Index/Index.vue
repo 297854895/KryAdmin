@@ -16,7 +16,7 @@
     <div :style="`height: ${height};width: 100%;`">
       <div class="nav-aside-menu">
         <ul class="nav-asideMenu" v-for="item of asideMenu">
-          <h3><i :class="item.icon"></i>&nbsp;{{item.label}}</h3>
+          <h3><i :class="item.icon"></i>&nbsp;&nbsp;{{item.label}}</h3>
           <li class="nav-asideMenu-li" @click="toggleRouter(item_.key, item_.path)" v-for="item_ of item.childs" :class="activeMenu === item_.key ? 'nav-asideMenu-active' : ''">
             {{item_.label}}
           </li>
@@ -35,6 +35,7 @@
 <script>
   export default {
     mounted() {
+      this.$data.activeMenu = this.$route.path.substring(1);
       this.$data.height = document.documentElement.clientHeight + 'px';
     },
     data() {

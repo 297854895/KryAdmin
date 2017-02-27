@@ -134,20 +134,29 @@
         });
         //数据完整性
         if (!dataComplete) {
-          this.$Kui.Notification.info({title:'提示', content: '请检查各项内容是否输入完整...'});
+          this.$Kui.Notification.info({title:'提示', content: '请检查各项内容是否输入完整...', autoClose: true});
           return;
         };
+        const p = document.createElement('p');
+        p.innerHTML = marked(article.content.substring(0,500));
+        article.intro = p.innerText.replace(/\s+/g,"");
         axios.post('/admin/article', article)
         .then(resp => {
           if (resp.status === 200) {
-            this.$Kui.Notification.success({title:'成功', content: '发布文章成功...'});
-            // todo
-            // 清空localStorage
+            this.$Kui.Notification.success({title:'成功', content: '发布文章成功...', autoClose: true});
+            // localStorage.removeItem('article');
+            // this.$data.content = '';
+            // this.$data.title = '';
+            // this.$data.imgUrl = '';
           }
         })
         .catch(err => {
           console.log(err);
         });
+      },
+      replaceAll(str, key, word) {
+        const words = str.replace(/^\s+|\s+$/g, word);
+        return words;
       },
       saveTitle(value) {
         const val = value.substring(2);
@@ -226,7 +235,7 @@
     vertical-align: top;
     border-radius: 4px;
     padding: 5.5px 8px;
-    min-height: 600px;
+    min-height: 500px;
     line-height: 18px;
   }
   .article-wrap{
