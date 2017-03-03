@@ -21,12 +21,6 @@ app.use(express.static(path.join(__dirname, '/dist')));
 app.get('/', function(req, res, next) {
   res.render('index.ejs');
 });
-
-app.use('/front/*', proxy('http://localhost:3333', {
-  forwardPath: function(req, res) {
-    return ('http://127.0.0.1:3333' + req._parsedOriginalUrl.path);
-  }
-}));
 app.use('/admin/*', proxy('http://localhost:3333', {
   forwardPath: function(req, res) {
     return ('http://127.0.0.1:3333' + req._parsedOriginalUrl.path);
