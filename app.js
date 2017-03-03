@@ -22,12 +22,16 @@ app.get('/', function(req, res, next) {
   res.render('index.ejs');
 });
 
-app.use('/api', proxy('http://localhost:3333', {
+app.use('/front/*', proxy('http://localhost:3333', {
   forwardPath: function(req, res) {
-    return require('url').parse(req.url).path;
+    return ('http://localhost:3333' + req._parsedOriginalUrl.path);
   }
 }));
-
+app.use('/admin/*', proxy('http://localhost:3333', {
+  forwardPath: function(req, res) {
+    return ('http://localhost:3333' + req._parsedOriginalUrl.path);
+  }
+}));
 app.get('/*', function(req, res, next) {
   res.render('index.ejs');
 });
