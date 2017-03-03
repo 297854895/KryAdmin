@@ -23,7 +23,7 @@ app.get('/', function(req, res, next) {
 });
 app.use('/admin/*', proxy('http://localhost:3333', {
   forwardPath: function(req, res) {
-    return ('http://127.0.0.1:3333' + req._parsedOriginalUrl.path);
+    return ('http://127.0.0.1:3333' + req.originalUrl);
   }
 }));
 app.get('/*', function(req, res, next) {
